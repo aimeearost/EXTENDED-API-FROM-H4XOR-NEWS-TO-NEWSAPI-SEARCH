@@ -33,6 +33,6 @@ struct Source: Decodable {
 
  struct URLName {
     let partialURL = "https://newsapi.org/v2/everything?q="
-    var searchTerm: String = "baseball"
+    var searchTerm: String = "news"
     let apiKey = "&apiKey=8e28babb2a8e4a4a91a9890b14ee915a"
 }

@@ -13,6 +13,8 @@ struct ContentView: View {
     @ObservedObject var networkManager = NetworkManager()
     @State  var textFieldContent: String = ""
 
+    
+    
     var body: some View {
             NavigationView {
                 //            these posts come from the published posts in the Network Manager
@@ -27,6 +29,10 @@ struct ContentView: View {
                                 .border(Color(red: 0.69, green: 0.02, blue: 0.02, opacity: 1.00), width: 1.0)
                                 .padding(.leading)
                             Button(action: {
+                                var searchTerm = textFieldContent
+                                networkManager.fetchSearch(searchTerm: textFieldContent)
+                                
+                                
                                 networkManager.useThisURL = "\(URLName().partialURL)\(textFieldContent)\(URLName().apiKey)"
                                 
 //                                WHY WON'T FETCHDATA USE THE CONTENT JUST DERIVED FROM THE TEXTFIELD/BUTTON ACTION

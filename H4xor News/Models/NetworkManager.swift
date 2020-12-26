@@ -16,6 +16,9 @@ class NetworkManager: ObservableObject {
     @Published var useThisURL = "\(URLName().partialURL)\(URLName().searchTerm)\(URLName().apiKey)"
 //    @Published var useThisSearchTerm = URLName().searchTerm
 
+    func fetchSearch(searchTerm: String) {
+         useThisURL = "\(URLName().partialURL)\(URLName().searchTerm)\(URLName().apiKey)"
+    }
     
     func fetchData() {
 //        NEED THIS USETHISURL TO USE THE OUTPUT FROM THE CONTENTVIEW!!!!!
