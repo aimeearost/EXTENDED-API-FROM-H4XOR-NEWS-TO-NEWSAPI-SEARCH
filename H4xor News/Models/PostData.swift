@@ -15,18 +15,20 @@ struct Results: Decodable {
 struct Post: Decodable, Identifiable {
 //    Identifiable protocol requires id, but objectID is the same so this is how to get around it
     var id: String {
-        return source.id
+//        return author
+        return title
     }
-    let source: Source
-    let description: String
-    let author: String
+    let description: String?
+//    let description: String
+    let author: String?
     let title: String
     let url: String?
+    let source: Source
+}
+
+struct Source: Decodable {
+    let name: String?
 }
 //The NetworkManager will then decode this information.
 
-struct Source: Decodable, Identifiable {
-    let id: String
-    let name: String
-}
 

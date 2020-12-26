@@ -15,16 +15,16 @@ class NetworkManager: ObservableObject {
     @Published var posts = [Post]()
     
     func fetchData() {
-        if let url = URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=8e28babb2a8e4a4a91a9890b14ee915a") {
+        if let url = URL(string: "https://newsapi.org/v2/everything?q=basketball&apiKey=8e28babb2a8e4a4a91a9890b14ee915a") {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error == nil {
                     let decoder = JSONDecoder()
-                    if let safeData = data {
+                    if let data = data {
                         //                        try is added because decoder.decode can "throw" and then wrap in a do-catch block
                         do {
                             //                            once decoded, we will bind it to a let constant; results can then be used to populate lists
-                            let results = try decoder.decode(Results.self, from: safeData)
+                            let results = try decoder.decode(Results.self, from: data)
                             
                             DispatchQueue.main.async {
                                 //                            This now has all of the posts/hits objects so next need to publish posts to any interested parties, which we do using the property wrapper @Published = up above in the var posts.
