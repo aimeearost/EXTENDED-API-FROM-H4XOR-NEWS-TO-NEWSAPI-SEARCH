@@ -13,9 +13,15 @@ class NetworkManager: ObservableObject {
     
     //    this published is kind of like subscribing to an RSS feed so you hear from it when content changes
     @Published var posts = [Post]()
+    @Published var useThisURL = URLName().partialURL + URLName().searchTerm + URLName().apiKey
+    
     
     func fetchData() {
-        if let url = URL(string: "https://newsapi.org/v2/everything?q=basketball&apiKey=8e28babb2a8e4a4a91a9890b14ee915a") {
+//        the results from textFieldContent will go in the searchTerm
+
+//        var fullURL = URLName().partialURL + URLName().searchTerm + URLName().apiKey
+
+        if let url = URL(string: useThisURL) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error == nil {

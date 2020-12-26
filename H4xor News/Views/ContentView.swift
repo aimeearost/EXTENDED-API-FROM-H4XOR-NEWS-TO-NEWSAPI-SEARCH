@@ -11,32 +11,32 @@ struct ContentView: View {
     //    to listen to the "published" posts, we are creating an object from network manager class.
     //    The observedobject makes it listen.
     @ObservedObject var networkManager = NetworkManager()
-    
+    @State private var textFieldContent: String = ""
+
     var body: some View {
             NavigationView {
-
                 //            these posts come from the published posts in the Network Manager
                 ZStack {
                     Color(red: 0.25, green: 0.25, blue: 0.25, opacity: 0.20)
                            .edgesIgnoringSafeArea(.all)
 
                     VStack {
-                        
-
                         HStack {
                             Spacer()
-
-                            TextField("basketball", text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                            TextField("search for news", text: $textFieldContent)
                                 .border(Color(red: 0.69, green: 0.02, blue: 0.02, opacity: 1.00), width: 1.0)
                                 .padding(.leading)
-                        
-                            Button(action: {}) {
+                            Button(action: {
+//                                I NEED TO FIGURE OUT HOW TO GET THE SEARCHTERM UPDATED FROM TEXTFIELDCONTENT
+//                                URLName().searchTerm = $textFieldContent
+                                print($networkManager.useThisURL)
+                                print(self.textFieldContent)
+                                textFieldContent = ""
+                            }) {
                                 Text("SEARCH")
-                                
                                     .foregroundColor(Color(red: 0.69, green: 0.02, blue: 0.02, opacity: 1.00))
                             }
                             Spacer()
-
                             .padding(.all)
                         }
                             List(networkManager.posts){ post in
@@ -48,16 +48,12 @@ struct ContentView: View {
                                             + Text(":  ") + Text(post.title)
                                             .foregroundColor(Color(red: 0.69, green: 0.02, blue: 0.02, opacity: 1.00))
                                             .bold()
-                                        
+                                    
                                     }
                                 }
-
-//                            }
                             }
                     }
                     .navigationBarTitle("NEWS")
-                
-                    
             }
     }
 
@@ -76,6 +72,8 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
 
 
 //
