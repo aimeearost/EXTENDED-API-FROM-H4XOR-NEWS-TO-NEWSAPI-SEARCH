@@ -18,7 +18,7 @@ class NetworkManager: ObservableObject {
 
     
     func fetchData() {
-//        NEED THIS USETHISSTRING TO USE THE OUTPUT FROM THE CONTENTVIEW!!!!!
+//        NEED THIS USETHISURL TO USE THE OUTPUT FROM THE CONTENTVIEW!!!!!
         if let url = URL(string: useThisURL) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
