@@ -11,7 +11,7 @@ struct ContentView: View {
     //    to listen to the "published" posts, we are creating an object from network manager class.
     //    The observedobject makes it listen.
     @ObservedObject var networkManager = NetworkManager()
-    @State private var textFieldContent: String = ""
+    @State  var textFieldContent: String = ""
 
     var body: some View {
             NavigationView {
@@ -27,10 +27,13 @@ struct ContentView: View {
                                 .border(Color(red: 0.69, green: 0.02, blue: 0.02, opacity: 1.00), width: 1.0)
                                 .padding(.leading)
                             Button(action: {
-//                                I NEED TO FIGURE OUT HOW TO GET THE SEARCHTERM UPDATED FROM TEXTFIELDCONTENT
-//                                URLName().searchTerm = $textFieldContent
-                                print($networkManager.useThisURL)
-                                print(self.textFieldContent)
+                                networkManager.useThisURL = "\(URLName().partialURL)\(textFieldContent)\(URLName().apiKey)"
+                                
+//                                WHY WON'T FETCHDATA USE THE CONTENT JUST DERIVED FROM THE TEXTFIELD/BUTTON ACTION
+                                networkManager.fetchData()
+                                
+                                print(networkManager.useThisURL)
+                                
                                 textFieldContent = ""
                             }) {
                                 Text("SEARCH")

@@ -13,14 +13,12 @@ class NetworkManager: ObservableObject {
     
     //    this published is kind of like subscribing to an RSS feed so you hear from it when content changes
     @Published var posts = [Post]()
-    @Published var useThisURL = URLName().partialURL + URLName().searchTerm + URLName().apiKey
-    
+    @Published var useThisURL = "\(URLName().partialURL)\(URLName().searchTerm)\(URLName().apiKey)"
+//    @Published var useThisSearchTerm = URLName().searchTerm
+
     
     func fetchData() {
-//        the results from textFieldContent will go in the searchTerm
-
-//        var fullURL = URLName().partialURL + URLName().searchTerm + URLName().apiKey
-
+//        NEED THIS USETHISSTRING TO USE THE OUTPUT FROM THE CONTENTVIEW!!!!!
         if let url = URL(string: useThisURL) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in
