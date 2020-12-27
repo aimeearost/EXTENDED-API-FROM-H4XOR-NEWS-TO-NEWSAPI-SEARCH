@@ -19,49 +19,70 @@ struct ContentView: View {
             NavigationView {
                 //            these posts come from the published posts in the Network Manager
                 ZStack {
-                    Color(red: 0.25, green: 0.25, blue: 0.25, opacity: 0.20)
-                           .edgesIgnoringSafeArea(.all)
 
                     VStack {
                         HStack {
-                            Spacer()
-                            TextField("search for news", text: $textFieldContent)
-                                .border(Color(red: 0.69, green: 0.02, blue: 0.02, opacity: 1.00), width: 1.0)
-                                .padding(.leading)
-                            Button(action: {
-                                var searchTerm = textFieldContent
-                                networkManager.fetchSearch(searchTerm: textFieldContent)
+                            TextField("search", text: $textFieldContent)
+                                .border(Color(red: 0.50, green: 0.67, blue: 0.48, opacity: 0.00))
+//                                .padding(.leading)
+                                .frame(width: 200)
+                                .multilineTextAlignment(.center)
+//                                .font(Font.system(size: 15, weight: .medium, design: .serif))
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding(10)
+                                  .font(Font.system(size: 15, weight: .medium, design: .serif))
+                                  .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 0.50, green: 0.67, blue: 0.48, opacity: 1.00), lineWidth: 1))
+                            ZStack {
                                 
+
                                 
-                                networkManager.useThisURL = "\(URLName().partialURL)\(textFieldContent)\(URLName().apiKey)"
-                                
-//                                WHY WON'T FETCHDATA USE THE CONTENT JUST DERIVED FROM THE TEXTFIELD/BUTTON ACTION
-                                networkManager.fetchData()
-                                
-                                print(networkManager.useThisURL)
-                                
-                                textFieldContent = ""
-                            }) {
-                                Text("SEARCH")
-                                    .foregroundColor(Color(red: 0.69, green: 0.02, blue: 0.02, opacity: 1.00))
+                                Button(action: {
+                                    networkManager.fetchSearch(searchTerm: textFieldContent)
+                                    
+                                    
+                                    networkManager.useThisURL = "\(URLName().partialURL)\(textFieldContent)\(URLName().apiKey)"
+                                    
+                                    networkManager.fetchData()
+                                    
+                                    print(networkManager.useThisURL)
+                                    
+                                    textFieldContent = ""
+                                    UIApplication.shared.endEditing()
+
+                                }) {
+                                    Text("")
+                                        .foregroundColor(Color(red: 0.50, green: 0.67, blue: 0.48, opacity: 1.00))
+                                        .font(Font.system(size: 20))
+                                    Image(systemName: "magnifyingglass.circle.fill")
+                                        .foregroundColor(Color(red: 0.50, green: 0.67, blue: 0.48, opacity: 1.00))
+                                        .font(.largeTitle)
+
+                                        .aspectRatio(contentMode: .fit)
+
+                                }
                             }
-                            Spacer()
                             .padding(.all)
+                            
                         }
                             List(networkManager.posts){ post in
                                 NavigationLink(destination: DetailView(url: post.url)) {
                                     HStack {
                                         Text(post.source.name ?? "")
-                                            .foregroundColor(Color(red: 0.15, green: 0.15, blue: 0.15, opacity: 1.00))
+//                                            .foregroundColor(Color(red: 0.15, green: 0.15, blue: 0.15, opacity: 1.00))
                                             .bold()
                                             + Text(":  ") + Text(post.title)
-                                            .foregroundColor(Color(red: 0.69, green: 0.02, blue: 0.02, opacity: 1.00))
+//                                            .foregroundColor(Color(red: 0.69, green: 0.02, blue: 0.02, opacity: 1.00))
                                             .bold()
-                                    
+
                                     }
+
                                 }
+
                             }
+
                     }
+
+
                     .navigationBarTitle("NEWS")
             }
     }
@@ -81,7 +102,11 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 
 
 
