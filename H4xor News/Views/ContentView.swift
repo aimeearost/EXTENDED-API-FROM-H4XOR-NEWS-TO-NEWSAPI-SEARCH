@@ -14,12 +14,10 @@ struct ContentView: View {
     @State  var textFieldContent: String = ""
 
     
-    
     var body: some View {
             NavigationView {
                 //            these posts come from the published posts in the Network Manager
                 ZStack {
-
                     VStack {
                         HStack {
                             TextField("search", text: $textFieldContent)
@@ -34,18 +32,11 @@ struct ContentView: View {
                                   .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 0.50, green: 0.67, blue: 0.48, opacity: 1.00), lineWidth: 1))
                             ZStack {
                                 
-
-                                
                                 Button(action: {
                                     networkManager.fetchSearch(searchTerm: textFieldContent)
-                                    
-                                    
                                     networkManager.useThisURL = "\(URLName().partialURL)\(textFieldContent)\(URLName().apiKey)"
-                                    
                                     networkManager.fetchData()
-                                    
                                     print(networkManager.useThisURL)
-                                    
                                     textFieldContent = ""
                                     UIApplication.shared.endEditing()
 
@@ -73,17 +64,15 @@ struct ContentView: View {
                                             + Text(":  ") + Text(post.title)
 //                                            .foregroundColor(Color(red: 0.69, green: 0.02, blue: 0.02, opacity: 1.00))
                                             .bold()
-
                                     }
 
                                 }
 
                             }
-
                     }
 
-
                     .navigationBarTitle("NEWS")
+
             }
     }
 
